@@ -1,5 +1,5 @@
-// Mobile menu only. Loaded in <head>, so the "js" class is set before first paint
-// (without JavaScript the nav simply stays open on phones).
+// Menu button only. Loaded in <head>, so the "js" class is set before first paint
+// (without JavaScript the nav simply stays visible as a row of links).
 document.documentElement.classList.add('js');
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -15,6 +15,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
   button.addEventListener('click', function () {
     setOpen(!nav.classList.contains('nav-open'));
+  });
+
+  document.addEventListener('click', function (e) {
+    if (nav.classList.contains('nav-open') && !nav.contains(e.target) && !button.contains(e.target)) {
+      setOpen(false);
+    }
   });
 
   document.addEventListener('keydown', function (e) {
